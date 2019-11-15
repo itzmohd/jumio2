@@ -45,9 +45,9 @@ allprojects {
     }
 }
 
-task wrapper(type: Wrapper) {
-   gradleVersion = '4.1.0'
-}
+// task wrapper(type: Wrapper) {
+//    gradleVersion = '4.1.0'
+// }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
 // Refer to: http://www.gradle.org/docs/current/userguide/tutorial_this_and_that.html
@@ -97,7 +97,7 @@ repositories {
 }
 
 ext {
-    SDK_VERSION = "2.12.0"
+    SDK_VERSION = "2.11.0"
 }
 
 dependencies {
@@ -129,64 +129,64 @@ dependencies {
 }
 
 
-def hasBuildExtras = file('build-extras.gradle').exists()
-if (hasBuildExtras) {
-    apply from: 'build-extras.gradle'
-}
+// def hasBuildExtras = file('build-extras.gradle').exists()
+// if (hasBuildExtras) {
+//     apply from: 'build-extras.gradle'
+// }
 
-// Set property defaults after extension .gradle files.
-if (ext.cdvCompileSdkVersion == null) {
-    ext.cdvCompileSdkVersion = privateHelpers.getProjectTarget()
-}
-if (ext.cdvBuildToolsVersion == null) {
-    ext.cdvBuildToolsVersion = privateHelpers.findLatestInstalledBuildTools()
-}
-if (ext.cdvDebugSigningPropertiesFile == null && file('debug-signing.properties').exists()) {
-    ext.cdvDebugSigningPropertiesFile = 'debug-signing.properties'
-}
-if (ext.cdvReleaseSigningPropertiesFile == null && file('release-signing.properties').exists()) {
-    ext.cdvReleaseSigningPropertiesFile = 'release-signing.properties'
-}
+// // Set property defaults after extension .gradle files.
+// if (ext.cdvCompileSdkVersion == null) {
+//     ext.cdvCompileSdkVersion = privateHelpers.getProjectTarget()
+// }
+// if (ext.cdvBuildToolsVersion == null) {
+//     ext.cdvBuildToolsVersion = privateHelpers.findLatestInstalledBuildTools()
+// }
+// if (ext.cdvDebugSigningPropertiesFile == null && file('debug-signing.properties').exists()) {
+//     ext.cdvDebugSigningPropertiesFile = 'debug-signing.properties'
+// }
+// if (ext.cdvReleaseSigningPropertiesFile == null && file('release-signing.properties').exists()) {
+//     ext.cdvReleaseSigningPropertiesFile = 'release-signing.properties'
+// }
 
-// Cast to appropriate types.
-ext.cdvBuildMultipleApks = cdvBuildMultipleApks == null ? false : cdvBuildMultipleApks.toBoolean();
-ext.cdvMinSdkVersion = cdvMinSdkVersion == null ? null : Integer.parseInt('' + cdvMinSdkVersion)
-ext.cdvVersionCode = cdvVersionCode == null ? null : Integer.parseInt('' + cdvVersionCode)
+// // Cast to appropriate types.
+// ext.cdvBuildMultipleApks = cdvBuildMultipleApks == null ? false : cdvBuildMultipleApks.toBoolean();
+// ext.cdvMinSdkVersion = cdvMinSdkVersion == null ? null : Integer.parseInt('' + cdvMinSdkVersion)
+// ext.cdvVersionCode = cdvVersionCode == null ? null : Integer.parseInt('' + cdvVersionCode)
 
-def computeBuildTargetName(debugBuild) {
-    def ret = 'assemble'
-    if (cdvBuildMultipleApks && cdvBuildArch) {
-        def arch = cdvBuildArch == 'arm' ? 'armv7' : cdvBuildArch
-        ret += '' + arch.toUpperCase().charAt(0) + arch.substring(1);
-    }
-    return ret + (debugBuild ? 'Debug' : 'Release')
-}
+// def computeBuildTargetName(debugBuild) {
+//     def ret = 'assemble'
+//     if (cdvBuildMultipleApks && cdvBuildArch) {
+//         def arch = cdvBuildArch == 'arm' ? 'armv7' : cdvBuildArch
+//         ret += '' + arch.toUpperCase().charAt(0) + arch.substring(1);
+//     }
+//     return ret + (debugBuild ? 'Debug' : 'Release')
+// }
 
-// Make cdvBuild a task that depends on the debug/arch-sepecific task.
-task cdvBuildDebug
-cdvBuildDebug.dependsOn {
-    return computeBuildTargetName(true)
-}
+// // Make cdvBuild a task that depends on the debug/arch-sepecific task.
+// task cdvBuildDebug
+// cdvBuildDebug.dependsOn {
+//     return computeBuildTargetName(true)
+// }
 
-task cdvBuildRelease
-cdvBuildRelease.dependsOn {
-    return computeBuildTargetName(false)
-}
+// task cdvBuildRelease
+// cdvBuildRelease.dependsOn {
+//     return computeBuildTargetName(false)
+// }
 
-task cdvPrintProps << {
-    println('cdvCompileSdkVersion=' + cdvCompileSdkVersion)
-    println('cdvBuildToolsVersion=' + cdvBuildToolsVersion)
-    println('cdvVersionCode=' + cdvVersionCode)
-    println('cdvMinSdkVersion=' + cdvMinSdkVersion)
-    println('cdvBuildMultipleApks=' + cdvBuildMultipleApks)
-    println('cdvReleaseSigningPropertiesFile=' + cdvReleaseSigningPropertiesFile)
-    println('cdvDebugSigningPropertiesFile=' + cdvDebugSigningPropertiesFile)
-    println('cdvBuildArch=' + cdvBuildArch)
-    println('computedVersionCode=' + android.defaultConfig.versionCode)
-    android.productFlavors.each { flavor ->
-        println('computed' + flavor.name.capitalize() + 'VersionCode=' + flavor.versionCode)
-    }
-}
+// task cdvPrintProps << {
+//     println('cdvCompileSdkVersion=' + cdvCompileSdkVersion)
+//     println('cdvBuildToolsVersion=' + cdvBuildToolsVersion)
+//     println('cdvVersionCode=' + cdvVersionCode)
+//     println('cdvMinSdkVersion=' + cdvMinSdkVersion)
+//     println('cdvBuildMultipleApks=' + cdvBuildMultipleApks)
+//     println('cdvReleaseSigningPropertiesFile=' + cdvReleaseSigningPropertiesFile)
+//     println('cdvDebugSigningPropertiesFile=' + cdvDebugSigningPropertiesFile)
+//     println('cdvBuildArch=' + cdvBuildArch)
+//     println('computedVersionCode=' + android.defaultConfig.versionCode)
+//     android.productFlavors.each { flavor ->
+//         println('computed' + flavor.name.capitalize() + 'VersionCode=' + flavor.versionCode)
+//     }
+// }
 
 android {
     // sourceSets {
