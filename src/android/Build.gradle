@@ -100,8 +100,7 @@ ext {
     SDK_VERSION = "2.12.0"
 }
 
-dependencies {
-    //implementation project(':CordovaLib')
+dependencies {  
 
     implementation "com.jumio.android:core:${SDK_VERSION}@aar"
     implementation "com.jumio.android:bam:${SDK_VERSION}@aar"
@@ -263,64 +262,32 @@ android {
         targetCompatibility JavaVersion.VERSION_1_6
     }
 
- signingConfigs {
-
+    if (cdvReleaseSigningPropertiesFile) {
+        signingConfigs {
             release {
-
                 // These must be set or Gradle will complain (even if they are overridden).
-
                 keyAlias = ""
-
                 keyPassword = "__unset" // And these must be set to non-empty in order to have the signing step added to the task graph.
-
                 storeFile = null
-
                 storePassword = "__unset"
-
             }
-
         }
-
         buildTypes {
-
-                debug {
-
-                signingConfig signingConfigs.release
-
-                minifyEnabled true
-
-                useProguard true
-
-                debuggable true
-
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            }
-
-       
-
             release {
-
                 signingConfig signingConfigs.release
-
-                minifyEnabled true   // Obfuscate and minify codes
-
-                useProguard true     // Remove unused codes
-
-                debuggable false
-
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
             }
-
         }
-
-        addSigningProps(signingConfigs.debug, signingConfigs.release)
+        addSigningProps(cdvReleaseSigningPropertiesFile, signingConfigs.release)
+    }
+    if (cdvDebugSigningPropertiesFile) {
+        addSigningProps(cdvDebugSigningPropertiesFile, signingConfigs.debug)
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
+    implementation project(':CordovaLib')
     //implementation(project(path: "CordovaLib"))
     // SUB-PROJECT DEPENDENCIES END
 }
