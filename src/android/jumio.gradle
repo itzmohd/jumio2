@@ -101,7 +101,7 @@ ext {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(':CordovaLib')
 
     implementation "com.jumio.android:core:${SDK_VERSION}@aar"
     implementation "com.jumio.android:bam:${SDK_VERSION}@aar"
