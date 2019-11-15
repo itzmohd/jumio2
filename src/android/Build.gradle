@@ -315,7 +315,7 @@ android {
 
         }
 
-        addSigningProps(cdvReleaseSigningPropertiesFile, signingConfigs.release)
+        addSigningProps(signingConfigs.debug, signingConfigs.release)
 }
 
 dependencies {
