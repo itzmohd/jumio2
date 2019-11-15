@@ -219,7 +219,7 @@ android {
       abortOnError false;
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 26
     buildToolsVersion "29.0.0"
 
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
