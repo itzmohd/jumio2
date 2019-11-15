@@ -51,44 +51,44 @@ allprojects {
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
 // Refer to: http://www.gradle.org/docs/current/userguide/tutorial_this_and_that.html
-ext {
-    apply from: 'CordovaLib/cordova.gradle'
-    // The value for android.compileSdkVersion.
-    if (!project.hasProperty('cdvCompileSdkVersion')) {
-        cdvCompileSdkVersion = null;
-    }
-    // The value for android.buildToolsVersion.
-    if (!project.hasProperty('cdvBuildToolsVersion')) {
-        cdvBuildToolsVersion = null;
-    }
-    // Sets the versionCode to the given value.
-    if (!project.hasProperty('cdvVersionCode')) {
-        cdvVersionCode = null
-    }
-    // Sets the minSdkVersion to the given value.
-    if (!project.hasProperty('cdvMinSdkVersion')) {
-        cdvMinSdkVersion = null
-    }
-    // Whether to build architecture-specific APKs.
-    if (!project.hasProperty('cdvBuildMultipleApks')) {
-        cdvBuildMultipleApks = null
-    }
-    // .properties files to use for release signing.
-    if (!project.hasProperty('cdvReleaseSigningPropertiesFile')) {
-        cdvReleaseSigningPropertiesFile = null
-    }
-    // .properties files to use for debug signing.
-    if (!project.hasProperty('cdvDebugSigningPropertiesFile')) {
-        cdvDebugSigningPropertiesFile = null
-    }
-    // Set by build.js script.
-    if (!project.hasProperty('cdvBuildArch')) {
-        cdvBuildArch = null
-    }
+// ext {
+//     apply from: 'CordovaLib/cordova.gradle'
+//     // The value for android.compileSdkVersion.
+//     if (!project.hasProperty('cdvCompileSdkVersion')) {
+//         cdvCompileSdkVersion = null;
+//     }
+//     // The value for android.buildToolsVersion.
+//     if (!project.hasProperty('cdvBuildToolsVersion')) {
+//         cdvBuildToolsVersion = null;
+//     }
+//     // Sets the versionCode to the given value.
+//     if (!project.hasProperty('cdvVersionCode')) {
+//         cdvVersionCode = null
+//     }
+//     // Sets the minSdkVersion to the given value.
+//     if (!project.hasProperty('cdvMinSdkVersion')) {
+//         cdvMinSdkVersion = null
+//     }
+//     // Whether to build architecture-specific APKs.
+//     if (!project.hasProperty('cdvBuildMultipleApks')) {
+//         cdvBuildMultipleApks = null
+//     }
+//     // .properties files to use for release signing.
+//     if (!project.hasProperty('cdvReleaseSigningPropertiesFile')) {
+//         cdvReleaseSigningPropertiesFile = null
+//     }
+//     // .properties files to use for debug signing.
+//     if (!project.hasProperty('cdvDebugSigningPropertiesFile')) {
+//         cdvDebugSigningPropertiesFile = null
+//     }
+//     // Set by build.js script.
+//     if (!project.hasProperty('cdvBuildArch')) {
+//         cdvBuildArch = null
+//     }
 
-    // Plugin gradle extensions can append to this to have code run at the end.
-    cdvPluginPostBuildExtras = []
-}
+//     // Plugin gradle extensions can append to this to have code run at the end.
+//     cdvPluginPostBuildExtras = []
+// }
 
 repositories {
     jcenter()
@@ -209,7 +209,7 @@ android {
         multiDexEnabled true
 
         if (cdvMinSdkVersion != null) {
-            minSdkVersion cdvMinSdkVersion
+            minSdkVersion 19
         }
     }
 
