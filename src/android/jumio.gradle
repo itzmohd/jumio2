@@ -101,6 +101,8 @@ ext {
 }
 
 dependencies {
+    implementation project(':library')
+
     implementation "com.jumio.android:core:${SDK_VERSION}@aar"
     implementation "com.jumio.android:bam:${SDK_VERSION}@aar"
     implementation "com.jumio.android:nv:${SDK_VERSION}@aar"
