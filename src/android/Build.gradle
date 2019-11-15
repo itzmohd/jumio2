@@ -219,7 +219,7 @@ android {
       abortOnError false;
     }
 
-    compileSdkVersion 26
+    compileSdkVersion 29
     buildToolsVersion "29.0.0"
 
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
@@ -263,26 +263,59 @@ android {
         targetCompatibility JavaVersion.VERSION_1_6
     }
 
-    if (cdvReleaseSigningPropertiesFile) {
-        signingConfigs {
+ signingConfigs {
+
             release {
+
                 // These must be set or Gradle will complain (even if they are overridden).
+
                 keyAlias = ""
+
                 keyPassword = "__unset" // And these must be set to non-empty in order to have the signing step added to the task graph.
+
                 storeFile = null
+
                 storePassword = "__unset"
+
             }
+
         }
+
         buildTypes {
-            release {
+
+                debug {
+
                 signingConfig signingConfigs.release
+
+                minifyEnabled true
+
+                useProguard true
+
+                debuggable true
+
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             }
+
+       
+
+            release {
+
+                signingConfig signingConfigs.release
+
+                minifyEnabled true   // Obfuscate and minify codes
+
+                useProguard true     // Remove unused codes
+
+                debuggable false
+
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            }
+
         }
+
         addSigningProps(cdvReleaseSigningPropertiesFile, signingConfigs.release)
-    }
-    if (cdvDebugSigningPropertiesFile) {
-        addSigningProps(cdvDebugSigningPropertiesFile, signingConfigs.debug)
-    }
 }
 
 dependencies {
